@@ -5,12 +5,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -27,7 +30,10 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
     var confirmPassword by remember { mutableStateOf("") }
 
     val gradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF2196F3), Color(0xFF1976D2))
+        colors = listOf(
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.primaryContainer
+        )
     )
 
     Box(
@@ -60,7 +66,7 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                     text = "Cadastro",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1976D2)
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -69,6 +75,9 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                     value = username,
                     onValueChange = { username = it },
                     label = { Text("Nome de usuário") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.Person, contentDescription = null)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -79,6 +88,9 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                     onValueChange = { email = it },
                     label = { Text("E-mail") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                    leadingIcon = {
+                        Icon(Icons.Filled.Email, contentDescription = null)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -88,6 +100,9 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Senha") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.Lock, contentDescription = null)
+                    },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier.fillMaxWidth()
@@ -99,6 +114,9 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
                     label = { Text("Confirmar senha") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.Lock, contentDescription = null)
+                    },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier.fillMaxWidth()
@@ -111,10 +129,6 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF1976D2),
-                        contentColor = Color.White
-                    ),
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("Cadastrar", fontSize = 16.sp)
@@ -125,7 +139,7 @@ fun RegisterScreen(onRegisterComplete: () -> Unit) {
                 TextButton(onClick = { onRegisterComplete() }) {
                     Text(
                         "Já tem uma conta? Faça login",
-                        color = Color(0xFF1976D2),
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 14.sp
                     )
                 }

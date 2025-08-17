@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,11 +19,19 @@ import androidx.compose.ui.unit.sp
 import com.example.appbasickotlin.R
 
 @Composable
-fun HomeScreen(userName: String = "Usuário", onCadastrarProduto: () -> Unit) {
+fun HomeScreen(
+    userName: String = "Usuário",
+    onCadastrarProduto: () -> Unit,
+    onListarProdutos: () -> Unit,
+    onLogout: () -> Unit
+) {
     var menuExpanded by remember { mutableStateOf(false) }
 
     val gradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF2196F3), Color(0xFF1976D2))
+        colors = listOf(
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.primaryContainer
+        )
     )
 
     Box(
@@ -44,7 +51,7 @@ fun HomeScreen(userName: String = "Usuário", onCadastrarProduto: () -> Unit) {
                     Icon(
                         imageVector = Icons.Default.MoreVert,
                         contentDescription = "Menu",
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
 
@@ -63,12 +70,7 @@ fun HomeScreen(userName: String = "Usuário", onCadastrarProduto: () -> Unit) {
                         text = { Text("Listar Produtos") },
                         onClick = {
                             menuExpanded = false
-                        }
-                    )
-                    DropdownMenuItem(
-                        text = { Text("Perfil de $userName") },
-                        onClick = {
-                            menuExpanded = false
+                            onListarProdutos()
                         }
                     )
                     Divider()
@@ -76,6 +78,7 @@ fun HomeScreen(userName: String = "Usuário", onCadastrarProduto: () -> Unit) {
                         text = { Text("Deslogar") },
                         onClick = {
                             menuExpanded = false
+                            onLogout()
                         }
                     )
                 }
@@ -106,7 +109,7 @@ fun HomeScreen(userName: String = "Usuário", onCadastrarProduto: () -> Unit) {
                     text = "Bem-vindo, $userName!",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1976D2),
+                    color = MaterialTheme.colorScheme.primary,
                     textAlign = TextAlign.Center
                 )
 
@@ -115,7 +118,7 @@ fun HomeScreen(userName: String = "Usuário", onCadastrarProduto: () -> Unit) {
                 Text(
                     text = "Use o menu no canto superior direito para navegar.",
                     fontSize = 16.sp,
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
             }

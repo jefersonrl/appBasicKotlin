@@ -5,12 +5,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,7 +27,10 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegisterClick: () -> Unit) {
     var password by remember { mutableStateOf("") }
 
     val gradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF2196F3), Color(0xFF1976D2))
+        colors = listOf(
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.primaryContainer
+        )
     )
 
     Box(
@@ -59,7 +64,7 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegisterClick: () -> Unit) {
                     text = "App Login",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1976D2)
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -68,6 +73,9 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegisterClick: () -> Unit) {
                     value = user,
                     onValueChange = { user = it },
                     label = { Text("Usuário") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.Person, contentDescription = null)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -77,6 +85,9 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegisterClick: () -> Unit) {
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Senha") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.Lock, contentDescription = null)
+                    },
                     visualTransformation = PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     modifier = Modifier.fillMaxWidth()
@@ -89,10 +100,6 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegisterClick: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF1976D2),
-                        contentColor = Color.White
-                    ),
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("Logar", fontSize = 16.sp)
@@ -103,7 +110,7 @@ fun LoginScreen(onLogin: (String) -> Unit, onRegisterClick: () -> Unit) {
                 TextButton(onClick = { onRegisterClick() }) {
                     Text(
                         "Esqueceu a senha?",
-                        color = Color(0xFF1976D2),
+                        color = MaterialTheme.colorScheme.primary,
                         fontSize = 14.sp
                     )
                 }

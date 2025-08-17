@@ -5,12 +5,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,7 +28,10 @@ fun CadastrarProdutoScreen(onRegisterComplete: () -> Unit) {
     var descricao by remember { mutableStateOf("") }
 
     val gradient = Brush.verticalGradient(
-        colors = listOf(Color(0xFF2196F3), Color(0xFF1976D2))
+        colors = listOf(
+            MaterialTheme.colorScheme.primary,
+            MaterialTheme.colorScheme.primaryContainer
+        )
     )
 
     Box(
@@ -58,7 +64,7 @@ fun CadastrarProdutoScreen(onRegisterComplete: () -> Unit) {
                     text = "Cadastrar Produto",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF1976D2)
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -67,6 +73,9 @@ fun CadastrarProdutoScreen(onRegisterComplete: () -> Unit) {
                     value = produto,
                     onValueChange = { produto = it },
                     label = { Text("Produto") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.ShoppingCart, contentDescription = null)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -77,6 +86,9 @@ fun CadastrarProdutoScreen(onRegisterComplete: () -> Unit) {
                     onValueChange = { quantidade = it },
                     label = { Text("Quantidade") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    leadingIcon = {
+                        Icon(Icons.Filled.List, contentDescription = null)
+                    },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -86,6 +98,9 @@ fun CadastrarProdutoScreen(onRegisterComplete: () -> Unit) {
                     value = descricao,
                     onValueChange = { descricao = it },
                     label = { Text("Descrição") },
+                    leadingIcon = {
+                        Icon(Icons.Filled.Info, contentDescription = null)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp),
@@ -99,10 +114,6 @@ fun CadastrarProdutoScreen(onRegisterComplete: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(0xFF1976D2),
-                        contentColor = Color.White
-                    ),
                     shape = RoundedCornerShape(12.dp)
                 ) {
                     Text("Cadastrar", fontSize = 16.sp)

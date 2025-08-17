@@ -54,6 +54,12 @@ class MainActivity : ComponentActivity() {
                                 userName = userName,
                                 onCadastrarProduto = {
                                     navController.navigate("cadastrarProduto")
+                                },
+                                onListarProdutos = {
+                                    navController.navigate("listarProdutos")
+                                },
+                                onLogout = {
+                                    navController.popBackStack("login", inclusive = false)
                                 }
                             )
                         }
@@ -61,6 +67,9 @@ class MainActivity : ComponentActivity() {
                             CadastrarProdutoScreen(
                                 onRegisterComplete = { navController.popBackStack() }
                             )
+                        }
+                        composable("listarProdutos") {
+                            ListarProdutosScreen(onBack = { navController.popBackStack() })
                         }
                     }
                 }
